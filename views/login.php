@@ -6,6 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/png" href="../img/favicon.png">
+    <script src="../js/validacionLogin.js"></script> 
 </head>
 <body>
     <header>
@@ -21,18 +22,20 @@
         
         <div class="form-group">
             <label for="user">Usuario:</label>
-            <input type="text" name="user" id="user" required>
+            <input type="text" name="user" id="user" required onblur="validarUser()">
+            <div id="user-error" class="error"></div>
         </div>
         
         <div class="form-group">
             <label for="password">Contraseña:</label>
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" required onblur="validarPassword()">
+            <div id="password-error" class="error"></div>
         </div>
         
         <input type="submit" value="Iniciar Sesión">
         
         <?php if (isset($_GET["fallo"]) && $_GET["fallo"] == "credenciales"): ?>
-            <p class="error">Usuario o contraseña incorrectos.</p>
+            <div class="error">Usuario o contraseña incorrectos.</div>
         <?php endif; ?>
         
         <p class="link">Si no tienes cuenta, <a href="register.php">regístrate</a></p>

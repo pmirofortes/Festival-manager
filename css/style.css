@@ -217,6 +217,7 @@ form input[type="submit"]:hover {
 /* Error Messages */
 .error {
     color: #e74c3c;
+    text-align: center;
     font-size: 0.9rem;
     margin-top: 0.2rem;
     display: block;

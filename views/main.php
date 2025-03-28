@@ -12,6 +12,7 @@ if (!isset($_SESSION['user'])) {
     <title>Festival Manager</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/png" href="../img/favicon.png">
+    <script src="../js/validacionInsert.js"></script>
 </head>
 <body>
     <header>
@@ -40,7 +41,7 @@ if (!isset($_SESSION['user'])) {
                 <tbody>
                     <?php
                     include '../services/connection.php';
-                    $sql = "SELECT * FROM artistas";
+                    $sql = "SELECT * FROM artistas order BY fecha_registro DESC";
                     $result = mysqli_query($conn, $sql);
                     if (mysqli_num_rows($result) > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
@@ -63,11 +64,14 @@ if (!isset($_SESSION['user'])) {
             <h2>Insertar artista</h2>
             <form action="../processes/insert_artist.php" method="post">
                 <label for="name">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" required>
+                <input type="text" name="nombre" id="nombre" required onblur="validarNombre()">
+                <div id="nombre-error" class="error"></div>
                 <label for="genre">Genero:</label>
-                <input type="text" name="genero" id="genero" required>    
+                <input type="text" name="genero" id="genero" required onblur="validarGenero()">  
+                <div id="genero-error" class="error"></div>  
                 <label for="pais">País:</label>
-                <input type="text" name="pais" id="pais" required>
+                <input type="text" name="pais" id="pais" required onblur="validarPais()">
+                <div id="pais-error" class="error"></div>
                 <input type="submit" value="Insertar">
             </form>
         </section>

@@ -11,7 +11,7 @@ function validarUser() {
         return false;
     } else {
         userError.textContent = ''; // Limpiar el mensaje de error
-        document.getElementById('user').style.backgroundColor = '#ABD8AB';
+        document.getElementById('user').style.backgroundColor = '#d5f5e3 ';
         return true;
     }
 }
@@ -31,7 +31,7 @@ function validarPassword() {
         return false;
     } else {
         passwordError.textContent = '';
-        document.getElementById('password').style.backgroundColor = '#ABD8AB';
+        document.getElementById('password').style.backgroundColor = '#d5f5e3';
         return true;
     }
 }
@@ -51,7 +51,7 @@ function validarConfirm() {
         return false;
     } else {
         confirmError.textContent = ''; 
-        document.getElementById('confirm_password').style.backgroundColor = '#ABD8AB';
+        document.getElementById('confirm_password').style.backgroundColor = '#d5f5e3';
         return true;
     }
 }
@@ -71,7 +71,7 @@ function validarEmail() {
         return false;
     } else {
         emailError.textContent = ''; 
-        document.getElementById('mail').style.backgroundColor = '#ABD8AB';
+        document.getElementById('mail').style.backgroundColor = '#d5f5e3';
         return true;
     }
 }
