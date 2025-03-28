@@ -2,32 +2,45 @@
 include '../services/connection.php';
 
 $user = $_POST['user'];
-$password = $_POST['password'];
+$password = $_POST['password']; // No hashear todavía
 
 if (isset($user) && isset($password)) {
-    $sql = "SELECT * FROM usuarios WHERE username = ? AND password = ?"; //cambiar esta consulta
+    // 1. Primero buscamos el usuario para obtener su hash almacenado
+    $sql = "SELECT username, password FROM usuarios WHERE username = ?";
     $stmt = mysqli_prepare($conn, $sql);
+
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, 'ss', $user, $password);
+        mysqli_stmt_bind_param($stmt, 's', $user);
+        
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
-            if (mysqli_num_rows($result) > 0) {
-                session_start();
-                $_SESSION['user'] = $user;
-                header("Location:../views/main.php");
+            
+            if (mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_assoc($result);
+                $stored_hash = $row['password'];
+                
+                // 2. Verificamos la contraseña contra el hash almacenado
+                if (password_verify($password, $stored_hash)) {
+                    session_start();
+                    $_SESSION['user'] = $user;
+                    header("Location: ../views/main.php");
+                    exit();
+                } else {
+                    header("Location: ../views/login.php?fallo=credenciales");
+                    exit();
+                }
             } else {
-                echo "Usuario o contraseña incorrectos";
+                header("Location: ../views/login.php?fallo=credenciales");
+                exit();
             }
         } else {
-            echo "Error al hacer login: " . mysqli_error($conn);
+            echo "Error al ejecutar la consulta: " . mysqli_error($conn);
         }
+        
         mysqli_stmt_close($stmt);
     }
     mysqli_close($conn);
 } else {
-    echo "Error al hacer login: " . mysqli_error($conn);
+    echo "Usuario y contraseña no pueden estar vacíos.";
 }
-
-
-
 ?>

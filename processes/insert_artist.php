@@ -7,7 +7,6 @@ $fecha = date("Y-m-d H:i:s");
 
 
 if(isset($nombre) && isset($genero) && isset($pais)){
-    //hara el insert a la base de datos
     $sql = "INSERT INTO artistas (nombre, genero, pais, fecha_registro) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $sql);
     if ($stmt) {

@@ -10,18 +10,23 @@ if (!isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festival Manager</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/png" href="../img/favicon.png">
 </head>
 <body>
     <header>
-    <?php
-    echo "<p>Bienvenido, " . $_SESSION['user'] . "</p>";
-
-    ?><!-- logo, boton cerrar sesion, mensaje bienvenida y puede que algun enlace -->
+        <a href="main.php"> 
+            <img class="logo" src="../img/logo2.png">
+        </a>
+        <?php
+        echo "<p>Bienvenido, " . $_SESSION['user'] . "</p>";
+        ?>
+        <a href="../processes/logout.php">
+            <button>Cerrar Sesión</button>
+        </a>
     </header>
-    <main>
-        <section>
+    <main class="main-container">
+        <section class="table-section">
             <h2>Artistas</h2>
             <table>
                 <thead>
@@ -47,14 +52,14 @@ if (!isset($_SESSION['user'])) {
                             echo "</tr>";
                         }
                     } else {
-                        echo "0 resultados";
+                        echo "<tr><td colspan='4'>No hay artistas registrados</td></tr>";
                     }
                     mysqli_close($conn);
                     ?>
                 </tbody>
             </table>
         </section>
-        <section>
+        <section class="form-section">
             <h2>Insertar artista</h2>
             <form action="../processes/insert_artist.php" method="post">
                 <label for="name">Nombre:</label>
@@ -66,8 +71,6 @@ if (!isset($_SESSION['user'])) {
                 <input type="submit" value="Insertar">
             </form>
         </section>
+    </main>
 </body>
 </html>
-
-<!-- tabla de artistas con select (nombre, genero, genero, fecha de insert) -->
- <!-- form para inserts con los campos anteriores -->
