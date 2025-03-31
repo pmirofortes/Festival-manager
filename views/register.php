@@ -45,7 +45,47 @@
                 <div id="confirm-error" class="error"></div>  
             </div>
             
-            <input type="submit" value="Registrarse" class="btn-primary">
+            <input type="submit" value="Registrarse">
+            
+            <?php if (isset($_GET['error'])): ?>
+                <div class="error">
+                    <?php
+                    // Mostrar mensajes de error según el código recibido
+                    switch (intval($_GET['error'])) {
+                        case 1:
+                            echo "Debe ingresar un nombre de usuario.";
+                            break;
+                        case 2:
+                            echo "El nombre de usuario debe tener al menos 3 caracteres.";
+                            break;
+                        case 3:
+                            echo "Debe ingresar un correo electrónico.";
+                            break;
+                        case 4:
+                            echo "El correo electrónico no es válido.";
+                            break;
+                        case 5:
+                            echo "El correo electrónico ya está registrado.";
+                            break;
+                        case 6:
+                            echo "Debe ingresar una contraseña.";
+                            break;
+                        case 7:
+                            echo "La contraseña no cumple con los requisitos de seguridad.";
+                            break;
+                        case 8:
+                            echo "Las contraseñas no coinciden.";
+                            break;
+                        case 9:
+                            echo "Error en la conexión con la base de datos.";
+                            break;
+                        default:
+                            echo "Error desconocido.";
+                            break;
+                    }
+                    ?>
+                </div>
+            <?php endif; ?>
             
             <div class="form-footer">
                 <p class="link">¿Ya tienes una cuenta? <a href="login.php">Iniciar Sesión</a></p>

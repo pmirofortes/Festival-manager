@@ -36,6 +36,7 @@ if (!isset($_SESSION['user'])) {
                         <th>Genero</th>
                         <th>País</th>
                         <th>Fecha de inserción</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,10 +51,14 @@ if (!isset($_SESSION['user'])) {
                             echo "<td>" . $row['genero'] . "</td>";
                             echo "<td>" . $row['pais'] . "</td>";
                             echo "<td>" . date('d/m/Y', strtotime($row['fecha_registro'])) . "</td>";
+                            echo "<td><a class='btn btn-rojo' href='../processes/eliminar_artist.php?id=" . $row["id"] . "'>Eliminar</a></td>";
                             echo "</tr>";
                         }
                     } else {
                         echo "<tr><td colspan='4'>No hay artistas registrados</td></tr>";
+                    }
+                    if (isset($_GET['mensaje'])) {
+                        echo "<div class='mensaje'>". $_GET['mensaje']. "</div>";
                     }
                     mysqli_close($conn);
                     ?>
@@ -74,6 +79,29 @@ if (!isset($_SESSION['user'])) {
                 <div id="pais-error" class="error"></div>
                 <input type="submit" value="Insertar">
             </form>
+            <?php if (isset($_GET['error'])): ?>
+                <div class="error">
+                    <?php
+                    switch (intval($_GET['error'])) {
+                        case 1:
+                            echo "Debe ingresar el nombre de un artista o grupo.";
+                            break;
+                        case 2:
+                            echo "El artista ya está en la base de datos.";
+                            break;
+                        case 3:
+                            echo "Debe ingresar un género musical.";
+                            break;
+                        case 4:
+                            echo "Debe ingresar un país.";
+                            break;
+                        default:
+                            echo "Error desconocido.";
+                            break;
+                    }
+                    ?>
+                </div>
+            <?php endif; ?>
         </section>
     </main>
 </body>

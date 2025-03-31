@@ -2,7 +2,7 @@
 include '../services/connection.php';
 
 $user = $_POST['user'];
-$password = $_POST['password']; // No hashear todavía
+$password = $_POST['password'];
 
 if (isset($user) && isset($password)) {
     // 1. Primero buscamos el usuario para obtener su hash almacenado
@@ -26,11 +26,11 @@ if (isset($user) && isset($password)) {
                     header("Location: ../views/main.php");
                     exit();
                 } else {
-                    header("Location: ../views/login.php?fallo=credenciales");
+                    header("Location: ../views/login.php?error=credenciales");
                     exit();
                 }
             } else {
-                header("Location: ../views/login.php?fallo=credenciales");
+                header("Location: ../views/login.php?error=credenciales");
                 exit();
             }
         } else {

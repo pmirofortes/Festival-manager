@@ -34,7 +34,7 @@
         
         <input type="submit" value="Iniciar Sesión">
         
-        <?php if (isset($_GET["fallo"]) && $_GET["fallo"] == "credenciales"): ?>
+        <?php if (isset($_GET["error"]) && $_GET["error"] == "credenciales"): ?>
             <div class="error">Usuario o contraseña incorrectos.</div>
         <?php endif; ?>
         
